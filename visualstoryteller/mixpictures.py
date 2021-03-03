@@ -68,7 +68,8 @@ class ImageStyle():
     # saves the last
     def save_jpgs(self, filename = 'output.jpg'):
         if self.stylized_image != None:
-            save_image(self.stylized_image[0], 'data/'+filename)
+            tf.keras.preprocessing.image.save_img(filename, self.stylized_image[0])
+            #save_image(self.stylized_image[0], 'data/'+filename)
         else:
             print("Stylized image has not been created yet.")
         return None
