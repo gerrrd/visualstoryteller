@@ -37,6 +37,5 @@ gensim
 matplotlib
 tensorflow
 tensorflow_hub
-functools
 
 
