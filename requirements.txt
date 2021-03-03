@@ -32,7 +32,6 @@ termcolor
 #nlp
 nltk
 gensim
-random
 
 #pics
 matplotlib
