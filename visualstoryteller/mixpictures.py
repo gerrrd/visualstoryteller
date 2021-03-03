@@ -5,13 +5,15 @@ import tensorflow as tf
 import tensorflow_hub as hub
 from visualstoryteller.mixutils import crop_center, load_image, show_n, save_image
 
+#hub_handle_source = '/Users/ger/code/gerrrd/visualstoryteller/visualstoryteller/data/magenta_arbitrary-image-stylization-v1-256_2'
+hub_handle_source = '/'.join([os.getcwd(),'data/magenta_arbitrary-image-stylization-v1-256_2'])
 class ImageStyle():
     # intant... the model with the output and style image size, and the
     # trained neural netwrok (hub_handle), by default: arbitrary-image-stylization-v1-256
     # returs self
     def __init__(self, output_image_size = 384,
                  style_image_size = (256, 256),
-                 hub_handle = 'https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2'):
+                 hub_handle = hub_handle_source):
         self.content_image = None
         self.style_image = None
         self.stylized_image = None
@@ -54,8 +56,7 @@ class ImageStyle():
 
     def show_stylized_image(self):
         if self.stylized_image != None:
-            show_n([self.stylized_image],
-                   titles=['Stylized image'])
+            show_n([self.stylized_image])
         else:
             print("Stylized image has not been created yet.")
         return None
