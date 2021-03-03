@@ -9,7 +9,6 @@ dotenv
 # data science
 numpy
 pandas
-scikit-learn
 
 # tests/linter
 black
@@ -35,4 +34,11 @@ termcolor
 nltk
 gensim
 random
+
+#pics
+matplotlib
+tensorflow
+tensorflow_hub
+functools
+
 
