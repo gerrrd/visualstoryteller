@@ -3,6 +3,8 @@ pip>=9
 setuptools>=26
 twine
 wheel>=0.29
+os
+dotenv
 
 # data science
 numpy
@@ -21,6 +23,7 @@ gcsfs
 google-cloud-storage
 mlflow
 s3fs
+requests
 
 # utilities
 six>=1.14
@@ -31,3 +34,5 @@ termcolor
 #nlp
 nltk
 gensim
+random
+
