@@ -6,7 +6,7 @@ import tensorflow_hub as hub
 from visualstoryteller.mixutils import crop_center, load_image, show_n, save_image
 
 #hub_handle_source = '/Users/ger/code/gerrrd/visualstoryteller/visualstoryteller/data/magenta_arbitrary-image-stylization-v1-256_2'
-hub_handle_source = '/'.join([os.getcwd(),'data/magenta_arbitrary-image-stylization-v1-256_2'])
+hub_handle_source = '/'.join([os.path.dirname(os.getcwd()),'visualstoryteller/data/magenta_arbitrary-image-stylization-v1-256_2'])
 class ImageStyle():
     # intant... the model with the output and style image size, and the
     # trained neural netwrok (hub_handle), by default: arbitrary-image-stylization-v1-256
