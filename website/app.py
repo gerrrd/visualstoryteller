@@ -19,7 +19,7 @@ text = st.text_input('Tell me something interesting:')
 
 if st.button('Submit'):
     with st.spinner('I am generating your image...'):
-        time.sleep(30)
+        time.sleep(1)
     st.success('This is what I came up with:')
 
     result = getonepic(text, show_result=True)
