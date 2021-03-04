@@ -3,6 +3,7 @@ from visualstoryteller.content import ContentImg
 from visualstoryteller.style import StyleImg
 from visualstoryteller.getwords import get_words
 from visualstoryteller.mixpictures import ImageStyle
+from tensorflow.keras.preprocessing.image import img_to_array
 import nltk
 
 
@@ -43,7 +44,8 @@ def getonepic(text, show_originals=False, show_result=False, show_all=False,
         mixing.show_stylized_image()
 
     toreturn = {
-        'image' : mixing.stylized_image,
+        'image' : img_to_array(mixing.stylized_image),
+        'imagelist' : list(img_to_array(mixing.stylized_image)),
         'content': [content_link, content_author_name, content_author_profile],
         'style' : [style_link, style_author_name, style_author_profile]
     }
@@ -51,5 +53,5 @@ def getonepic(text, show_originals=False, show_result=False, show_all=False,
     if saveimage:
         mixing.save_jpgs(savename)
         toreturn['saved'] = savename
-        
+
     return toreturn
