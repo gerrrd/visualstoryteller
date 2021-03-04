@@ -44,10 +44,10 @@ def getonepic(text, show_originals=False, show_result=False, show_all=False,
         mixing.show_stylized_image()
 
     toreturn = {
-        'image' : img_to_array(mixing.stylized_image),
-        'imagelist' : list(img_to_array(mixing.stylized_image)),
+        'image': mixing.stylized_image,
+        #'imagelist' : list(img_to_array(mixing.stylized_image)),
         'content': [content_link, content_author_name, content_author_profile],
-        'style' : [style_link, style_author_name, style_author_profile]
+        'style': [style_link, style_author_name, style_author_profile]
     }
 
     if saveimage:

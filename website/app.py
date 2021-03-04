@@ -24,8 +24,8 @@ if st.button('Submit'):
     params = {'text': text}
 
     result = requests.get(url, params=params)
-    import ipdb; ipdb.set_trace()
-    print(result)
+
+    #print(result)
 
     fig, ax = plt.subplots()
     im = ax.imshow(result['image'])
