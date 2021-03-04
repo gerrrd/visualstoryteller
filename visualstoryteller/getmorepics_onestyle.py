@@ -4,9 +4,10 @@ from visualstoryteller.style import StyleImg
 from visualstoryteller.getmorewords import get_more_words
 from visualstoryteller.mixmorepics import GetStylePics
 import nltk
+import random
 
 
-def getmorepics(text, show_originals=False, show_result=False, show_all=False,
+def getmorepics_onestyle(text, show_originals=False, show_result=False, show_all=False,
                 saveimage=False, savename='output.jpg'):
     '''
     parameters:
@@ -28,9 +29,15 @@ def getmorepics(text, show_originals=False, show_result=False, show_all=False,
     style_author_name = []
     style_author_profile = []
 
+    theverb = random.randint(0,len(verbs)-2)
+    forstyle = [verbs[theverb], verbs[theverb + 1]]
+
+    styleimage = ContentImg()
+    slink, sauthor_name, sauthor_profile = styleimage.get_content(forstyle)
+
+
     for i in range(len(nouns)):
         forcontent = nouns[i]
-        forstyle = [verbs[2*i], verbs[2*i + 1]]
 
         contentimage = ContentImg()
         link, author_name, author_profile = contentimage.get_content(forcontent)
@@ -38,11 +45,9 @@ def getmorepics(text, show_originals=False, show_result=False, show_all=False,
         content_author_name.append(author_name)
         content_author_profile.append(author_profile)
 
-        styleimage = ContentImg()
-        link, author_name, author_profile = styleimage.get_content(forstyle)
-        style_link.append(link)
-        style_author_name.append(author_name)
-        style_author_profile.append(author_profile)
+        style_link.append(slink)
+        style_author_name.append(sauthor_name)
+        style_author_profile.append(sauthor_profile)
 
     mixing = GetStylePics()
     mixing.load_images(content_link, style_link)

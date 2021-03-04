@@ -27,7 +27,7 @@ def get_more_words(text, maxnouns = 7):
         text = text.replace(punctuation, '')
 
     text = nltk.word_tokenize(text)
-    text = [word.lower() for word in text]
+    #text = [word.lower() for word in text]
 
     text1 = nltk.pos_tag(text)
 
@@ -61,8 +61,11 @@ def get_more_words(text, maxnouns = 7):
 
     while len(final_verbs) < 2 * len(nouns):
         for v in verbs:
-            new_words = model.most_similar(positive=[v], topn = 4)[-3:-1]
-            new_words2 = [s[0] for s in new_words]
+            # new
+            if v in model.wv.vocab.keys():
+                new_words = model.most_similar(positive=[v], topn = 4)[-3:-1]
+                new_words2 = [s[0] for s in new_words]
+            # new
             final_verbs = final_verbs + new_words2
         verbs = final_verbs
 
