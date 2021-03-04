@@ -1,10 +1,9 @@
 import streamlit as st
 import time
-from visualstoryteller.getonepic import getonepic
 import matplotlib.pyplot as plt
-import nltk
-nltk.download('word2vec_sample')
-nltk.download('averaged_perceptron_tagger')
+import requests
+
+url = 'http://localhost:8000/image'
 
 st.markdown('''
 
@@ -22,25 +21,36 @@ if st.button('Submit'):
         time.sleep(1)
     st.success('This is what I came up with:')
 
-    result = getonepic(text, show_result=True)
+    params = {'text': text}
+
+    result = requests.get(url, params=params)
+    import ipdb; ipdb.set_trace()
+    print(result)
 
     fig, ax = plt.subplots()
-    im = ax.imshow(result['image'][0])
+    im = ax.imshow(result['image'])
     plt.axis('off')
     st.pyplot(fig)
 
+    content_image = result['content'][0]
     content_author = result['content'][1]
     content_profile = result['content'][2]
+    style_image = result['style'][0]
     style_author = result['style'][1]
     style_profile = result['style'][2]
 
     attribution = f"Photos by [{content_author}]({content_profile}) and \
         [{style_author}]({style_profile})"
 
+    images_links = f"[Image 1]({content_image}) / [Image 2]({style_image})"
+
     st.markdown(attribution)
+    st.markdown(images_links)
 
 st.markdown('''
 
 Images from [Unsplash](https://unsplash.com/)
 
 ''')
+
+
