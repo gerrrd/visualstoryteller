@@ -21,7 +21,7 @@ def index():
 @app.get("/image")
 def get_image(text):
 
-    result = getonepic(text)
+    result = getonepic(text, saveimage=True)
 
     # image = result['image']
     # content_image = result['content'][0]
