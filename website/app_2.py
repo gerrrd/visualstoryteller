@@ -11,7 +11,7 @@ st.markdown('''
 # Visual Storyteller
 
 Hey there!
-I am an artifical intelligence that turns your text into an image.
+I am an artifical intelligence that turns your text into ✨**artsy**✨ images.
 
 ''')
 
@@ -27,29 +27,46 @@ if st.button('Submit'):
     result = requests.get(url, params=params).json()
 
     print(result)
-    jpeg = result['saved']
-    image = Image.open(jpeg)
-    st.image(image)
+    for i in range(len(result['saved'])):
+
+        pic = result['saved'][i]
+        content_image = result['content'][0][i]
+        content_author = result['content'][1][i]
+        content_profile = result['content'][2][i]
+        style_image = result['style'][0][i]
+        style_author = result['style'][1][i]
+        style_profile = result['style'][2][i]
+
+        image = Image.open(pic)
+        st.image(image)
+
+        attribution = f"Photos by [{content_author}]({content_profile}) and \
+            [{style_author}]({style_profile})"
+
+        images_links = f"[Image 1]({content_image}) / [Image 2]({style_image})"
+
+        st.markdown(attribution)
+        st.markdown(images_links)
 
     #fig, ax = plt.subplots()
     #im = ax.imshow(result['image'])
     #plt.axis('off')
     #st.pyplot(fig)
 
-    content_image = result['content'][0]
-    content_author = result['content'][1]
-    content_profile = result['content'][2]
-    style_image = result['style'][0]
-    style_author = result['style'][1]
-    style_profile = result['style'][2]
+    # content_image = result['content'][0]
+    # content_author = result['content'][1]
+    # content_profile = result['content'][2]
+    # style_image = result['style'][0]
+    # style_author = result['style'][1]
+    # style_profile = result['style'][2]
 
-    attribution = f"Photos by [{content_author}]({content_profile}) and \
-        [{style_author}]({style_profile})"
+    # attribution = f"Photos by [{content_author}]({content_profile}) and \
+    #     [{style_author}]({style_profile})"
 
-    images_links = f"[Image 1]({content_image}) / [Image 2]({style_image})"
+    # images_links = f"[Image 1]({content_image}) / [Image 2]({style_image})"
 
-    st.markdown(attribution)
-    st.markdown(images_links)
+    # st.markdown(attribution)
+    # st.markdown(images_links)
 
 st.markdown('''
 

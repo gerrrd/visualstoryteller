@@ -28,7 +28,6 @@ def get_words(text):
     noun = ''
     invocab = False
     while (not invocab) and len(nouns) > 0:
-        print(nouns)
         noun_chosen = random.randint(0,len(nouns)-1)
         noun = nouns.pop(noun_chosen)
         invocab = (noun in model.wv.vocab.keys())
@@ -41,7 +40,6 @@ def get_words(text):
     verb = ''
     invocab = False
     while (not invocab) and len(verbs) > 0:
-        print(verbs)
         verb_chosen = random.randint(0,len(verbs)-1)
         verb = verbs.pop(verb_chosen)
         invocab = (verb in model.wv.vocab.keys())

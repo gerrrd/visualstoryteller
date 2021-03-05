@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from visualstoryteller.getonepic import getonepic
+from visualstoryteller.getmorepics_twonouns import getmorepics_twonouns
 
 app = FastAPI()
 
@@ -21,7 +21,7 @@ def index():
 @app.get("/image")
 def get_image(text):
 
-    result = getonepic(text, saveimage=True)
+    result = getmorepics_twonouns(text, saveimage=True)
 
     # image = result['image']
     # content_image = result['content'][0]
