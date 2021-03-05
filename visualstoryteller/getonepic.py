@@ -52,6 +52,6 @@ def getonepic(text, show_originals=False, show_result=False, show_all=False,
 
     if saveimage:
         mixing.save_jpgs(savename)
-        toreturn['saved'] = savename
+        toreturn['saved'] = f"../api/{savename}"
 
     return toreturn

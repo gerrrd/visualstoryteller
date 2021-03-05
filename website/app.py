@@ -2,6 +2,7 @@ import streamlit as st
 import time
 import matplotlib.pyplot as plt
 import requests
+from PIL import Image
 
 url = 'http://localhost:8000/image'
 
@@ -26,11 +27,14 @@ if st.button('Submit'):
     result = requests.get(url, params=params).json()
 
     print(result)
+    jpeg = result['saved']
+    image = Image.open(jpeg)
+    st.image(image)
 
-    fig, ax = plt.subplots()
-    im = ax.imshow(result['image'])
-    plt.axis('off')
-    st.pyplot(fig)
+    #fig, ax = plt.subplots()
+    #im = ax.imshow(result['image'])
+    #plt.axis('off')
+    #st.pyplot(fig)
 
     content_image = result['content'][0]
     content_author = result['content'][1]
