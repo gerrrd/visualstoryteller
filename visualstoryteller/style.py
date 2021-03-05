@@ -5,7 +5,7 @@ import os
 class StyleImg():
 
     per_page = 30
-    index = random.randint(0, per_page-1)
+
     base_uri = 'https://api.unsplash.com'
     endpoint_style = '/topics/textures-patterns/photos'
     client_id = os.getenv('API_KEY')
@@ -22,8 +22,9 @@ class StyleImg():
 
         response = requests.get(self.base_uri + self.endpoint_style, params=params)
         json_file = response.json()
-        img_link = json_file[self.index]['urls']['small']
-        author_profile = json_file[self.index]['user']['links']['html']
-        author_name = json_file[self.index]['user']['name']
+        index = random.randint(0, self.per_page-1)
+        img_link = json_file[index]['urls']['small']
+        author_profile = json_file[index]['user']['links']['html']
+        author_name = json_file[index]['user']['name']
 
         return img_link, author_name, author_profile
