@@ -8,10 +8,10 @@ url = 'http://localhost:8000/image'
 
 st.markdown('''
 
-# Visual Storyteller
+# *Artsy* Storyteller
 
 Hey there!
-I am an artifical intelligence that turns your text into ✨**artsy**✨ images.
+I am an artifical intelligence that turns your text into ✨*artsy*✨ images.
 
 ''')
 
@@ -27,27 +27,31 @@ if st.button('Submit'):
     result = requests.get(url, params=params).json()
 
     print(result)
-    for i in range(len(result['saved'])):
 
-        pic = result['saved'][i]
-        content_image = result['content'][0][i]
-        content_author = result['content'][1][i]
-        content_profile = result['content'][2][i]
-        style_image = result['style'][0][i]
-        style_author = result['style'][1][i]
-        style_profile = result['style'][2][i]
+    if result['OK'] != 0:
+        for i in range(len(result['saved'])):
 
-        image = Image.open(pic)
-        st.image(image)
+            pic = result['saved'][i]
+            content_image = result['content'][0][i]
+            content_author = result['content'][1][i]
+            content_profile = result['content'][2][i]
+            style_image = result['style'][0][i]
+            style_author = result['style'][1][i]
+            style_profile = result['style'][2][i]
 
-        attribution = f"Photos by [{content_author}]({content_profile}) and \
-            [{style_author}]({style_profile})"
+            image = Image.open(pic)
+            st.image(image)
 
-        images_links = f"[Image 1]({content_image}) / [Image 2]({style_image})"
+            attribution = f"Photos by [{content_author}]({content_profile}) and \
+                [{style_author}]({style_profile})"
 
-        st.markdown(attribution)
-        st.markdown(images_links)
+            images_links = f"[Image 1]({content_image}) / [Image 2]({style_image})"
 
+            st.markdown(attribution)
+            st.markdown(images_links)
+
+        else:
+            st.markdown("I couldn’t get much out of your text ☹️ Tell me something else.")
     #fig, ax = plt.subplots()
     #im = ax.imshow(result['image'])
     #plt.axis('off')
