@@ -1,9 +1,6 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from visualstoryteller.getonepic import getonepic
-import nltk
-nltk.download('word2vec_sample')
-nltk.download('averaged_perceptron_tagger')
 
 app = FastAPI()
 
