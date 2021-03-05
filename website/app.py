@@ -8,10 +8,10 @@ url = 'http://localhost:8000/image'
 
 st.markdown('''
 
-# Visual Storyteller
+# *Artsy* Storyteller
 
 Hey there!
-I am an artifical intelligence that turns your text into an image.
+I am an artifical intelligence that turns your text into an ✨*artsy*✨ image.
 
 ''')
 
@@ -27,29 +27,34 @@ if st.button('Submit'):
     result = requests.get(url, params=params).json()
 
     print(result)
-    jpeg = result['saved']
-    image = Image.open(jpeg)
-    st.image(image)
 
-    #fig, ax = plt.subplots()
-    #im = ax.imshow(result['image'])
-    #plt.axis('off')
-    #st.pyplot(fig)
+    if result['OK'] != 0:
+        jpeg = result['saved']
+        image = Image.open(jpeg)
+        st.image(image)
 
-    content_image = result['content'][0]
-    content_author = result['content'][1]
-    content_profile = result['content'][2]
-    style_image = result['style'][0]
-    style_author = result['style'][1]
-    style_profile = result['style'][2]
+        #fig, ax = plt.subplots()
+        #im = ax.imshow(result['image'])
+        #plt.axis('off')
+        #st.pyplot(fig)
 
-    attribution = f"Photos by [{content_author}]({content_profile}) and \
-        [{style_author}]({style_profile})"
+        content_image = result['content'][0]
+        content_author = result['content'][1]
+        content_profile = result['content'][2]
+        style_image = result['style'][0]
+        style_author = result['style'][1]
+        style_profile = result['style'][2]
 
-    images_links = f"[Image 1]({content_image}) / [Image 2]({style_image})"
+        attribution = f"Photos by [{content_author}]({content_profile}) and \
+            [{style_author}]({style_profile})"
 
-    st.markdown(attribution)
-    st.markdown(images_links)
+        images_links = f"[Image 1]({content_image}) / [Image 2]({style_image})"
+
+        st.markdown(attribution)
+        st.markdown(images_links)
+
+    else:
+        st.markdown("I couldn’t get much out of your text ☹️ Tell me something else.")
 
 st.markdown('''
 
