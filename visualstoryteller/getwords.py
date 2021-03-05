@@ -23,16 +23,36 @@ def get_words(text):
         if n[1].startswith('V'):
             verbs.append(n[0])
 
+    # TODO: return something and deal with it in getonecpic.py
 
-    noun_chosen = random.randint(0,len(nouns)-1)
-    noun = nouns[noun_chosen]
+    noun = ''
+    invocab = False
+    while (not invocab) and len(nouns) > 0:
+        print(nouns)
+        noun_chosen = random.randint(0,len(nouns)-1)
+        noun = nouns.pop(noun_chosen)
+        invocab = (noun in model.wv.vocab.keys())
 
-    verb_chosen = random.randint(0,len(verbs)-1)
-    verb = verbs[verb_chosen]
+    # if none of them is in the vocabulary:
+    if not invocab:
+        noun = 'question'
+    # else we have a word
+
+    verb = ''
+    invocab = False
+    while (not invocab) and len(verbs) > 0:
+        print(verbs)
+        verb_chosen = random.randint(0,len(verbs)-1)
+        verb = verbs.pop(verb_chosen)
+        invocab = (verb in model.wv.vocab.keys())
+
+    # if none of them is in the vocabulary:
+    if not invocab:
+        verb = 'choose'
+    # else we have a word
 
     list_nouns = model.most_similar(positive=[noun], topn = 3)
     list_verbs = model.most_similar(positive=[verb], topn = 10)
-
 
     similar_nouns = [s[0] for s in list_nouns]
     similar_verbs = [s[0] for s in list_verbs]
