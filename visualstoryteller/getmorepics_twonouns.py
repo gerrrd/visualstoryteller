@@ -18,9 +18,10 @@ def getmorepics_twonouns(text, show_originals=False, show_result=False, show_all
         savename string
     '''
 
+
     nouns, verbs = get_more_words(text, 14)
     if nouns == 0:
-        return 0
+        return {'OK' : 0}
 
     if len(nouns) % 2 == 1:
         nouns.append(nouns[-1])
@@ -63,6 +64,7 @@ def getmorepics_twonouns(text, show_originals=False, show_result=False, show_all
     #     mixing.show_stylized_image()
 
     toreturn = {
+        'OK' : len(mixing.stylized_image),
         'image' : mixing.stylized_image,
         'content': [content_link, content_author_name, content_author_profile],
         'style' : [style_link, style_author_name, style_author_profile]
