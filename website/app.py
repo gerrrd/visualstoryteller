@@ -23,9 +23,9 @@ if st.button('Submit'):
 
     params = {'text': text}
 
-    result = requests.get(url, params=params)
+    result = requests.get(url, params=params).json()
 
-    #print(result)
+    print(result)
 
     fig, ax = plt.subplots()
     im = ax.imshow(result['image'])

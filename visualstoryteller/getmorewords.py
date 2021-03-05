@@ -1,23 +1,16 @@
 import nltk
 from nltk.tokenize import word_tokenize
 import random
-import gensim
-from nltk.data import find
+import joblib
+import os
 # from nltk.corpus import stopwords
 import string
-# TODO include joblib and load the model
-# from sklearn.externals import joblib
-# TODO we won't need download brown when we load the model
-nltk.download('brown')
 
 
 def get_more_words(text, maxnouns = 7):
-    word2vec_sample = str(find('models/word2vec_sample/pruned.word2vec.txt'))
-    model = gensim.models.KeyedVectors.load_word2vec_format(word2vec_sample, binary=False)
 
-    # TODO pre train and here just to load the trained model
-    # nltk_model_path = 'my_model_knn.pkl.pkl'
-    # model = joblib.load(nltk_model_path)
+    nltk_model_path = '/'.join([os.path.dirname(os.getcwd()),'visualstoryteller/data/nlp_model.pkl'])
+    model = joblib.load(nltk_model_path)
 
     # we're not using it now:
     # stopWords = set(stopwords.words('english'))
