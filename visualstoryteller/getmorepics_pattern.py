@@ -20,6 +20,8 @@ def getmorepics_pattern(text, show_originals=False, show_result=False, show_all=
     '''
 
     nouns, verbs = get_more_words(text)
+    if nouns == 0:
+        return 0
 
     content_link = []
     content_author_name = []

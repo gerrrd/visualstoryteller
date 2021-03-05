@@ -19,6 +19,8 @@ def getmorepics_twonouns(text, show_originals=False, show_result=False, show_all
     '''
 
     nouns, verbs = get_more_words(text, 14)
+    if nouns == 0:
+        return 0
 
     if len(nouns) % 2 == 1:
         nouns.append(nouns[-1])

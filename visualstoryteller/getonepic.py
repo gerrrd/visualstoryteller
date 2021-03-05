@@ -22,6 +22,9 @@ def getonepic(text, show_originals=False, show_result=False, show_all=False,
 
     nouns, verbs = get_words(text)
 
+    if nouns == 0:
+        return 0
+
     contentimage=ContentImg()
     content_link, content_author_name, content_author_profile \
         = contentimage.get_content(nouns)
