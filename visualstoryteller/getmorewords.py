@@ -44,11 +44,11 @@ def get_more_words(text, maxnouns = 7):
 
     # TODO here we can implement a "return 0" for poor text
     if nouns == []:
-        nouns = ['bear']
+        return 0, 0
 
     # TODO here we can implement a "return 0" for poor text
     if verbs == []:
-        verbs = ['fly', 'run', 'go']
+        return 0, 0
 
     final_verbs = []
 
