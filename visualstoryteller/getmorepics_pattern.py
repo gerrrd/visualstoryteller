@@ -67,8 +67,4 @@ def getmorepics_pattern(text, show_originals=False, show_result=False, show_all=
         'style' : [style_link, style_author_name, style_author_profile]
     }
 
-    # if saveimage:
-    #     mixing.save_jpgs(savename)
-    #     toreturn['saved'] = savename
-
     return toreturn

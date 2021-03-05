@@ -74,12 +74,21 @@ class GetStylePics():
     def get_pics():
         return self.stylized_image
 
+    def save_jpgs(self, filename = 'output.jpg'):
+        # list of filenames to return
+        fnames = []
 
-    # TODO save them 1 by one
-    # def save_jpgs(self, filename = 'output.jpg'):
-    #     if self.stylized_image != None:
-    #         tf.keras.preprocessing.image.save_img(filename, self.stylized_image[0])
-    #         #save_image(self.stylized_image[0], 'data/'+filename)
-    #     else:
-    #         print("Stylized image has not been created yet.")
-    #     return None
+        # cut .jpg if given:
+        if filename[-4:].lower() == '.jpg':
+            filename = filename[:-4]
+
+        # if there is, save it:
+        if self.stylized_image != None:
+            for i in range(len(self.stylized_image)):
+                fname = f'{filename}_{i}.jpg'
+                fnames.append(fname)
+                tf.keras.preprocessing.image.save_img(fname, self.stylized_image[i][0])
+        else:
+            print("Stylized image has not been created yet.")
+            return None
+        return fnames
