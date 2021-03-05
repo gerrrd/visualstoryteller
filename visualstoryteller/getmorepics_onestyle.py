@@ -21,7 +21,7 @@ def getmorepics_onestyle(text, show_originals=False, show_result=False, show_all
 
     nouns, verbs = get_more_words(text)
     if nouns == 0:
-        return 0
+        return {'OK' : 0}
 
     content_link = []
     content_author_name = []
@@ -65,6 +65,7 @@ def getmorepics_onestyle(text, show_originals=False, show_result=False, show_all
     #     mixing.show_stylized_image()
 
     toreturn = {
+        'OK' : len(mixing.stylized_image),
         'image' : mixing.stylized_image,
         'content': [content_link, content_author_name, content_author_profile],
         'style' : [style_link, style_author_name, style_author_profile]

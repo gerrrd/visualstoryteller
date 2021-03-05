@@ -23,7 +23,7 @@ def getonepic(text, show_originals=False, show_result=False, show_all=False,
     nouns, verbs = get_words(text)
 
     if nouns == 0:
-        return 0
+        return {'OK' : 0}
 
     contentimage=ContentImg()
     content_link, content_author_name, content_author_profile \
@@ -47,6 +47,7 @@ def getonepic(text, show_originals=False, show_result=False, show_all=False,
         mixing.show_stylized_image()
 
     toreturn = {
+        'OK' : 1,
         'image': mixing.stylized_image,
         #'imagelist' : list(img_to_array(mixing.stylized_image)),
         'content': [content_link, content_author_name, content_author_profile],

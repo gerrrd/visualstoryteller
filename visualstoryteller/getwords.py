@@ -23,7 +23,9 @@ def get_words(text):
         if n[1].startswith('V'):
             verbs.append(n[0])
 
-    # TODO: return something and deal with it in getonecpic.py
+    # dealt with in getonecpic.py
+    if (nouns == []) or (verbs == []):
+        return 0, 0
 
     noun = ''
     invocab = False
@@ -34,7 +36,7 @@ def get_words(text):
 
     # if none of them is in the vocabulary:
     if not invocab:
-        noun = 'question'
+        return 0, 0
     # else we have a word
 
     verb = ''
@@ -46,7 +48,7 @@ def get_words(text):
 
     # if none of them is in the vocabulary:
     if not invocab:
-        verb = 'choose'
+        return 0, 0
     # else we have a word
 
     list_nouns = model.most_similar(positive=[noun], topn = 3)
