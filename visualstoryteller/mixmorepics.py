@@ -1,9 +1,12 @@
 import functools
 import os
+import requests
+from PIL import Image
+from io import BytesIO
 
 import tensorflow as tf
 import tensorflow_hub as hub
-from visualstoryteller.mixutils import crop_center, load_image, show_n, save_image
+from visualstoryteller.mixutils import crop_center, load_image, load_content_image, show_n, save_image
 
 #hub_handle_source = '/Users/ger/code/gerrrd/visualstoryteller/visualstoryteller/data/magenta_arbitrary-image-stylization-v1-256_2'
 hub_handle_source = '/'.join([os.path.dirname(os.getcwd()),'visualstoryteller/data/magenta_arbitrary-image-stylization-v1-256_2'])
@@ -29,7 +32,7 @@ class GetStylePics():
         self.content_image = []
         self.style_image = []
         for content, style in zip(content_image_url, style_image_url):
-            contentimage = load_image(content, self.content_image_size)
+            contentimage = load_content_image(content, self.content_image_size)
             self.content_image.append(contentimage)
             styleimage = tf.nn.avg_pool(load_image(style, self.style_image_size), ksize=[3,3], strides=[1,1], padding='SAME')
             self.style_image.append(styleimage)
