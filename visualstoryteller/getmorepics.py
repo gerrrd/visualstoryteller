@@ -19,8 +19,8 @@ def getmorepics(text, show_originals=False, show_result=False, show_all=False,
         savename string
     '''
 
-    nouns, verbs = get_more_words(text)
-    if nouns == 0:
+    words = get_more_words(text)
+    if words == []:
         return {'OK' : 0}
 
 
@@ -32,9 +32,9 @@ def getmorepics(text, show_originals=False, show_result=False, show_all=False,
     style_author_name = []
     style_author_profile = []
 
-    for i in range(len(nouns)):
-        forcontent = nouns[i]
-        forstyle = [verbs[2*i], verbs[2*i + 1]]
+    for w in words:
+        forcontent = [w[0]]
+        forstyle = [w[1]]
 
         contentimage = ContentImg()
         # link, author_name, author_profile = contentimage.get_content(forcontent)
