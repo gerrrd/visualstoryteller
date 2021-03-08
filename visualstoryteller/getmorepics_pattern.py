@@ -25,7 +25,7 @@ def getmorepics_pattern(text, show_originals=False, show_result=False, show_all=
 
     content_link = []
     content_author_name = []
-    content_author_profile = []
+    # content_author_profile = []
 
     style_link = []
     style_author_name = []
@@ -44,7 +44,7 @@ def getmorepics_pattern(text, show_originals=False, show_result=False, show_all=
         link, author_name, author_profile = contentimage.get_content(forcontent)
         content_link.append(link)
         content_author_name.append(author_name)
-        content_author_profile.append(author_profile)
+        # content_author_profile.append(author_profile)
 
         style_link.append(slink)
         style_author_name.append(sauthor_name)
@@ -66,7 +66,7 @@ def getmorepics_pattern(text, show_originals=False, show_result=False, show_all=
     toreturn = {
         'OK' : len(mixing.stylized_image),
         'image' : mixing.stylized_image,
-        'content': [content_link, content_author_name, content_author_profile],
+        'content': [content_link, content_author_name], # content_author_profile],
         'style' : [style_link, style_author_name, style_author_profile]
     }
 

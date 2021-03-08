@@ -1,5 +1,6 @@
 # gets one picture and returns a picture as array (plt)
 from visualstoryteller.content import ContentImg
+from visualstoryteller.contentunsplash import ContentImgUnsplash
 from visualstoryteller.style import StyleImg
 from visualstoryteller.getwords import get_words
 from visualstoryteller.mixpictures import ImageStyle
@@ -23,13 +24,14 @@ def getonepic(text, show_originals=False, show_result=False, show_all=False,
     nouns, verbs = get_words(text)
 
     if nouns == 0:
-        return {'OK' : 0}
+        return {'OK': 0}
 
-    contentimage=ContentImg()
-    content_link, content_author_name, content_author_profile \
-        = contentimage.get_content(nouns)
+    contentimage = ContentImg()
+    # content_link, content_author_name, content_author_profile \
+    #     = contentimage.get_content(nouns)
+    content_link, content_author_name = contentimage.get_content(nouns)
 
-    styleimage=ContentImg()
+    styleimage = ContentImgUnsplash()
     style_link, style_author_name, style_author_profile \
         = styleimage.get_content(verbs)
 
@@ -50,7 +52,7 @@ def getonepic(text, show_originals=False, show_result=False, show_all=False,
         'OK' : 1,
         'image': mixing.stylized_image,
         #'imagelist' : list(img_to_array(mixing.stylized_image)),
-        'content': [content_link, content_author_name, content_author_profile],
+        'content': [content_link, content_author_name], # content_author_profile],
         'style': [style_link, style_author_name, style_author_profile]
     }
 
