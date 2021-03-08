@@ -1,5 +1,6 @@
 # gets one picture and returns a picture as array (plt)
 from visualstoryteller.content import ContentImg
+from visualstoryteller.contentunsplash import ContentImgUnsplash
 from visualstoryteller.style import StyleImg
 from visualstoryteller.getmorewords import get_more_words
 from visualstoryteller.mixmorepics import GetStylePics
@@ -25,7 +26,7 @@ def getmorepics(text, show_originals=False, show_result=False, show_all=False,
 
     content_link = []
     content_author_name = []
-    content_author_profile = []
+    # content_author_profile = []
 
     style_link = []
     style_author_name = []
@@ -36,12 +37,13 @@ def getmorepics(text, show_originals=False, show_result=False, show_all=False,
         forstyle = [verbs[2*i], verbs[2*i + 1]]
 
         contentimage = ContentImg()
-        link, author_name, author_profile = contentimage.get_content(forcontent)
+        # link, author_name, author_profile = contentimage.get_content(forcontent)
+        link, author_name = contentimage.get_content(forcontent)
         content_link.append(link)
         content_author_name.append(author_name)
-        content_author_profile.append(author_profile)
+        # content_author_profile.append(author_profile)
 
-        styleimage = ContentImg()
+        styleimage = ContentImgUnsplash()
         link, author_name, author_profile = styleimage.get_content(forstyle)
         style_link.append(link)
         style_author_name.append(author_name)
@@ -61,10 +63,10 @@ def getmorepics(text, show_originals=False, show_result=False, show_all=False,
     #     mixing.show_stylized_image()
 
     toreturn = {
-        'OK' : len(mixing.stylized_image),
-        'image' : mixing.stylized_image,
-        'content': [content_link, content_author_name, content_author_profile],
-        'style' : [style_link, style_author_name, style_author_profile]
+        'OK': len(mixing.stylized_image),
+        'image': mixing.stylized_image,
+        'content': [content_link, content_author_name], # content_author_profile],
+        'style': [style_link, style_author_name, style_author_profile]
     }
 
     # if saveimage:

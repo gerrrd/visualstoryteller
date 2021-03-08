@@ -1,5 +1,9 @@
 import functools
 import os
+import requests
+from io import BytesIO
+from PIL import Image
+import numpy as np
 
 from matplotlib import gridspec
 import matplotlib.pylab as plt
@@ -25,6 +29,40 @@ def load_image(image_url, image_size=(256, 256), preserve_aspect_ratio=True):
   image_path = tf.keras.utils.get_file(os.path.basename(image_url)[-128:], image_url)
   # Load and convert to float32 numpy array, add batch dimension, and normalize to range [0, 1].
   img = plt.imread(image_path).astype(np.float32)[np.newaxis, ...]
+  if img.max() > 1.0:
+    img = img / 255.
+  if len(img.shape) == 3:
+    img = tf.stack([img, img, img], axis=-1)
+  img = crop_center(img)
+  img = tf.image.resize(img, image_size, preserve_aspect_ratio=True)
+  return img
+
+@functools.lru_cache(maxsize=None)
+def load_content_image(image_url, image_size=(256, 256), preserve_aspect_ratio=True):
+  """Loads and preprocesses images."""
+  # Cache image file locally.
+  # image_path = tf.keras.utils.get_file(os.path.basename(image_url)[-128:], image_url)
+  # Load and convert to float32 numpy array, add batch dimension, and normalize to range [0, 1].
+  #img = plt.imread(image_path).astype(np.float32)[np.newaxis, ...]
+  r = requests.get(image_url)
+  im = Image.open(BytesIO(r.content))
+  img = np.array(im).reshape((im.size[1],im.size[0],3))
+  if img.max() > 1.0:
+    img = img / 255.
+  if len(img.shape) == 3:
+    img = np.expand_dims(img, axis = 0)
+    #img = tf.stack([img, img, img], axis=-1)
+  img = crop_center(img)
+  img = tf.image.resize(img, image_size, preserve_aspect_ratio=True)
+  return img
+
+@functools.lru_cache(maxsize=None)
+def load_local_image(image_url, image_size=(256, 256), preserve_aspect_ratio=True):
+  """Loads and preprocesses images."""
+  # Cache image file locally.
+  # image_path = tf.keras.utils.get_file(os.path.basename(image_url)[-128:], image_url)
+  # Load and convert to float32 numpy array, add batch dimension, and normalize to range [0, 1].
+  img = plt.imread(image_url).astype(np.float32)[np.newaxis, ...]
   if img.max() > 1.0:
     img = img / 255.
   if len(img.shape) == 3:
