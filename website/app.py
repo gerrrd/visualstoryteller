@@ -2,6 +2,7 @@ import streamlit as st
 import time
 import matplotlib.pyplot as plt
 import requests
+from google.cloud import storage
 from PIL import Image
 
 url = 'http://localhost:8000/image'
@@ -29,37 +30,36 @@ if st.button('Submit'):
     print(result)
 
     if result['OK'] != 0:
-        jpeg = result['saved']
-        image = Image.open(jpeg)
-        st.image(image)
+
+        # jpeg = result['saved']
+        # image = Image.open(jpeg)
+        st.image(result['im_url'])
 
         #fig, ax = plt.subplots()
         #im = ax.imshow(result['image'])
         #plt.axis('off')
         #st.pyplot(fig)
 
-        content_image = result['content'][0]
-        content_author = result['content'][1]
-        content_profile = result['content'][2]
-        style_image = result['style'][0]
-        style_author = result['style'][1]
-        style_profile = result['style'][2]
+#         content_image = result['content'][0]
+#         content_author = result['content'][1]
+#         content_profile = result['content'][2]
+#         style_image = result['style'][0]
+#         style_author = result['style'][1]
+#         style_profile = result['style'][2]
 
-        attribution = f"Photos by [{content_author}]({content_profile}) and \
-            [{style_author}]({style_profile})"
+#         attribution = f"Photos by [{content_author}]({content_profile}) and \
+#             [{style_author}]({style_profile})"
 
-        images_links = f"[Image 1]({content_image}) / [Image 2]({style_image})"
+#         images_links = f"[Image 1]({content_image}) / [Image 2]({style_image})"
 
-        st.markdown(attribution)
-        st.markdown(images_links)
+#         st.markdown(attribution)
+#         st.markdown(images_links)
 
-    else:
-        st.markdown("I couldn’t get much out of your text ☹️ Tell me something else.")
+#     else:
+#         st.markdown("I couldn’t get much out of your text ☹️ Tell me something else.")
 
-st.markdown('''
+# st.markdown('''
 
-Images from [Unsplash](https://unsplash.com/)
+# Images from [Unsplash](https://unsplash.com/)
 
-''')
-
-
+# ''')
