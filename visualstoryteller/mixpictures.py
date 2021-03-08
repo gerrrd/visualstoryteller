@@ -1,9 +1,13 @@
 import functools
 import os
+import requests
+from PIL import Image
+from io import BytesIO
 
 import tensorflow as tf
 import tensorflow_hub as hub
-from visualstoryteller.mixutils import crop_center, load_image, show_n, save_image
+from visualstoryteller.mixutils import crop_center, load_image, load_local_image, show_n, save_image, load_content_image
+
 
 #hub_handle_source = '/Users/ger/code/gerrrd/visualstoryteller/visualstoryteller/data/magenta_arbitrary-image-stylization-v1-256_2'
 hub_handle_source = '/'.join([os.path.dirname(os.getcwd()),'visualstoryteller/data/magenta_arbitrary-image-stylization-v1-256_2'])
@@ -26,7 +30,13 @@ class ImageStyle():
 
     # loads the image given in content_url and style_url, return self
     def load_images(self, content_image_url, style_image_url):
-        self.content_image = load_image(content_image_url, self.content_image_size)
+        # self.content_image = load_image(content_image_url, self.content_image_size)
+        # temp_file_name = 'output.jpg'
+        # os.system(f'wget {link} --output-document={temp_file_name}')
+        # self.content_image = load_local_image('output.jpg', self.content_image_size)
+        # os.system(f'rm {temp_file_name}')
+        r = requests.get(content_image_url)
+        self.content_image = self.content_image = load_content_image(content_image_url, self.content_image_size)
         self.style_image = tf.nn.avg_pool(load_image(style_image_url, self.style_image_size), ksize=[3,3], strides=[1,1], padding='SAME')
         return None
 
