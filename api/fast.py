@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from google.cloud import storage
 from visualstoryteller.getonepic import getonepic
 
 app = FastAPI()
@@ -23,6 +24,18 @@ def get_image(text):
 
     result = getonepic(text, saveimage=True)
 
+    bucket_name = 'lewagon-bootcamp-305809'
+    storage_location = 'project'
+    path_to_file = 'output.jpg'
+
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+    blob = bucket.blob(f'{storage_location}/{path_to_file}')
+    blob.upload_from_filename(path_to_file)
+    blob.make_public()
+    im_url = blob.public_url
+
+    result['im_url'] = im_url
     # image = result['image']
     # content_image = result['content'][0]
     # content_author = result['content'][1]
