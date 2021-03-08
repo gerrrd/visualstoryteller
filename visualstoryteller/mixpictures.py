@@ -1,8 +1,5 @@
 import functools
 import os
-import requests
-from PIL import Image
-from io import BytesIO
 
 import tensorflow as tf
 import tensorflow_hub as hub
@@ -35,8 +32,7 @@ class ImageStyle():
         # os.system(f'wget {link} --output-document={temp_file_name}')
         # self.content_image = load_local_image('output.jpg', self.content_image_size)
         # os.system(f'rm {temp_file_name}')
-        r = requests.get(content_image_url)
-        self.content_image = self.content_image = load_content_image(content_image_url, self.content_image_size)
+        self.content_image = load_content_image(content_image_url, self.content_image_size)
         self.style_image = tf.nn.avg_pool(load_image(style_image_url, self.style_image_size), ksize=[3,3], strides=[1,1], padding='SAME')
         return None
 
