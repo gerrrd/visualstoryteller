@@ -5,11 +5,9 @@ from io import BytesIO
 from PIL import Image
 import numpy as np
 
-from matplotlib import gridspec
 import matplotlib.pylab as plt
 import numpy as np
 import tensorflow as tf
-import tensorflow_hub as hub
 # @title Define image loading and visualization functions  { display-mode: "form" }
 
 def crop_center(image):
@@ -43,7 +41,7 @@ def load_content_image(image_url, image_size=(256, 256), preserve_aspect_ratio=T
   # Cache image file locally.
   # image_path = tf.keras.utils.get_file(os.path.basename(image_url)[-128:], image_url)
   # Load and convert to float32 numpy array, add batch dimension, and normalize to range [0, 1].
-  #img = plt.imread(image_path).astype(np.float32)[np.newaxis, ...]
+  # img = plt.imread(image_path).astype(np.float32)[np.newaxis, ...]
   r = requests.get(image_url)
   im = Image.open(BytesIO(r.content))
   img = np.array(im).reshape((im.size[1],im.size[0],3))
@@ -76,16 +74,3 @@ def save_image(img, file_name):
   plt.axis('off')
   plt.savefig(file_name)
   return None
-
-def show_n(images, titles=('',)):
-  n = len(images)
-  image_sizes = [image.shape[1] for image in images]
-  w = (image_sizes[0] * 6) // 320
-  plt.figure(figsize=(w  * n, w))
-  gs = gridspec.GridSpec(1, n, width_ratios=image_sizes)
-  for i in range(n):
-    plt.subplot(gs[i])
-    plt.imshow(images[i][0], aspect='equal')
-    plt.axis('off')
-    plt.title(titles[i] if len(titles) > i else '')
-  plt.show()

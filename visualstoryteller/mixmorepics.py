@@ -1,15 +1,11 @@
-import functools
 import os
-import requests
-from PIL import Image
-from io import BytesIO
-
 import tensorflow as tf
 import tensorflow_hub as hub
-from visualstoryteller.mixutils import crop_center, load_image, load_content_image, show_n, save_image
+from visualstoryteller.mixutils import load_image, load_content_image
 
-#hub_handle_source = '/Users/ger/code/gerrrd/visualstoryteller/visualstoryteller/data/magenta_arbitrary-image-stylization-v1-256_2'
+# hub_handle_source = '/Users/ger/code/gerrrd/visualstoryteller/visualstoryteller/data/magenta_arbitrary-image-stylization-v1-256_2'
 hub_handle_source = '/'.join([os.path.dirname(os.getcwd()),'visualstoryteller/data/magenta_arbitrary-image-stylization-v1-256_2'])
+
 class GetStylePics():
     # intant... the model with the output and style image size, and the
     # trained neural netwrok (hub_handle), by default: arbitrary-image-stylization-v1-256
@@ -46,32 +42,6 @@ class GetStylePics():
         for i in range(len(self.content_image)):
             self.stylized_image.append(hub_module(self.content_image[i], self.style_image[i])[0]) # 0, as more images can be done at the same time
         return self
-
-    # # prints the originals (plt.imshow)
-    # def show_originals(self):
-    #     if (self.content_image != None) and (self.style_image != None):
-    #         show_n([self.content_image, self.style_image], ['Content image', 'Style image'])
-    #     else:
-    #         print("Images have to be loaded first")
-
-    #     return None
-
-    # prints all 3 images (plt.imshow)
-    # def show_all_images(self):
-    #     if self.stylized_image != None:
-    #         show_n([self.content_image, self.style_image, self.stylized_image],
-    #                titles=['Original content image', 'Style image', 'Stylized image'])
-    #     else:
-    #         print("Images have to be loaded and compiled first.")
-
-    #     return None
-
-    # def show_stylized_image(self):
-    #     if self.stylized_image != None:
-    #         show_n([self.stylized_image])
-    #     else:
-    #         print("Stylized image has not been created yet.")
-    #     return None
 
     # returns the picture as array
     def get_pics():
