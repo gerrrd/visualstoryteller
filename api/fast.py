@@ -26,7 +26,7 @@ def get_image(text):
     result = getonepic(text, saveimage=True)
 
     # check if the response is empty
-    if result['OK'] == 0:
+    if result['OK'] <= 0:
         return result
 
     # upload the pictures to google storage
