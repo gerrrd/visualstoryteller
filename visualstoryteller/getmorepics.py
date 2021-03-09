@@ -3,11 +3,8 @@ from visualstoryteller.content import ContentImg
 from visualstoryteller.contentunsplash import ContentImgUnsplash
 from visualstoryteller.getmorewords import get_more_words
 from visualstoryteller.mixmorepics import GetStylePics
-import nltk
 
-
-def getmorepics(text, show_originals=False, show_result=False, show_all=False,
-                saveimage=False, savename='output.jpg'):
+def getmorepics(text, saveimage=False, savename='output.jpg'):
     '''
     parameters:
         text: string
@@ -20,56 +17,61 @@ def getmorepics(text, show_originals=False, show_result=False, show_all=False,
 
     words = get_more_words(text)
     if words == []:
-        return {'OK' : 0}
-
+        return {'OK' : 0} # I couldn’t get any text out
 
     content_link = []
     content_author_name = []
-    # content_author_profile = []
+    content_author_profile = []
 
     style_link = []
     style_author_name = []
     style_author_profile = []
 
+    found_pics = True
+    wrong_word = ''
     for w in words:
-        forcontent = [w[0]]
-        forstyle = [w[1]]
+        if found_pics:
+            forcontent = [w[0]]
+            forstyle = [w[1]]
 
-        contentimage = ContentImg()
-        # link, author_name, author_profile = contentimage.get_content(forcontent)
-        link, author_name = contentimage.get_content(forcontent)
-        content_link.append(link)
-        content_author_name.append(author_name)
-        # content_author_profile.append(author_profile)
+            contentimage = ContentImg()
+            link, author_name, author_profile = contentimage.get_content(forcontent)
+            content_link.append(link)
+            content_author_name.append(author_name)
+            content_author_profile.append(author_profile)
+            if link == "nothing":
+                found_pics = False
+                # just the second return of get_content
+                wrong_word = author_name
+            else:
+                styleimage = ContentImgUnsplash()
+                link, author_name, author_profile = styleimage.get_content(forstyle)
+                style_link.append(link)
+                style_author_name.append(author_name)
+                style_author_profile.append(author_profile)
+                if link == "nothing":
+                    found_pics = False
+                    # just the second return of get_content
+                    wrong_word = author_name
 
-        styleimage = ContentImgUnsplash()
-        link, author_name, author_profile = styleimage.get_content(forstyle)
-        style_link.append(link)
-        style_author_name.append(author_name)
-        style_author_profile.append(author_profile)
+    # if we have the word but can't find a picture, return -1 and the
+    # word we couldn’t find a picture for
+    if not found_pics:
+        return {'OK': -1, "wrong_word": wrong_word}
 
     mixing = GetStylePics()
     mixing.load_images(content_link, style_link)
     mixing.stylize()
 
-    # if show_all:
-    #     mixing.show_all_images()
-
-    # if show_originals:
-    #     mixing.show_originals()
-
-    # if show_result:
-    #     mixing.show_stylized_image()
-
     toreturn = {
         'OK': len(mixing.stylized_image),
         'image': mixing.stylized_image,
-        'content': [content_link, content_author_name], # content_author_profile],
+        'content': [content_link, content_author_name, content_author_profile],
         'style': [style_link, style_author_name, style_author_profile]
     }
 
-    # if saveimage:
-    #     mixing.save_jpgs(savename)
-    #     toreturn['saved'] = savename
+    if saveimage:
+        file_names = mixing.save_jpgs(savename)
+        toreturn['saved'] = [f"../api/{fn}" for fn in file_names]
 
     return toreturn
