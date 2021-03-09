@@ -71,7 +71,6 @@ def getmorepics(text, saveimage=False, savename='output.jpg'):
     }
 
     if saveimage:
-        file_names = mixing.save_jpgs(savename)
-        toreturn['saved'] = [f"../api/{fn}" for fn in file_names]
+        toreturn['saved'] = mixing.save_jpgs(savename)
 
     return toreturn
