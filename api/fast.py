@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from google.cloud import storage
-from visualstoryteller.getonepic import getonepic
+from visualstoryteller.getmorepics import getmorepics
+from datetime import datetime
 
 app = FastAPI()
 
@@ -22,8 +23,11 @@ def index():
 @app.get("/image")
 def get_image(text):
 
+    now = datetime.today()
+    n = str(now).replace(' ','').replace('-','').replace(':','').replace('.','')
+
     # get the images
-    result = getonepic(text, saveimage=True)
+    result = getmorepics(text, saveimage=True, savename=f"output_{n}.jpg")
 
     # check if the response is empty
     if result['OK'] <= 0:
