@@ -1,7 +1,6 @@
 # gets one picture and returns a picture as array (plt)
 from visualstoryteller.content import ContentImg
 from visualstoryteller.contentunsplash import ContentImgUnsplash
-from visualstoryteller.style import StyleImg
 from visualstoryteller.getmorewords import get_more_words
 from visualstoryteller.mixmorepics import GetStylePics
 import nltk
