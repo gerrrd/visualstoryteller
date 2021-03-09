@@ -11,7 +11,7 @@ def noun_adj(adj,verb):
 
 def get_more_words(text, maxnouns = 6):
     nlp = spacy.load("en_core_web_sm")
-    doc = nlp(text.lower())
+    doc = nlp(text)
     nouns_adjectives = []
     verbs = [str(token.lemma_) for token in doc if token.pos_ == "VERB"]
     chunks = [x.text for x in doc.noun_chunks]
