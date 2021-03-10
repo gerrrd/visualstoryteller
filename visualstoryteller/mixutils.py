@@ -44,7 +44,7 @@ def load_content_image(image_url, image_size=(256, 256), preserve_aspect_ratio=T
   # img = plt.imread(image_path).astype(np.float32)[np.newaxis, ...]
   r = requests.get(image_url)
   im = Image.open(BytesIO(r.content))
-  img = np.array(im).reshape((im.size[1],im.size[0],3))
+  img = np.array(im.convert("RGB")).reshape((im.size[1],im.size[0],3))
   if img.max() > 1.0:
     img = img / 255.
   if len(img.shape) == 3:
