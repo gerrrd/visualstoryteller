@@ -8,17 +8,9 @@ python-dotenv
 # data science
 numpy
 
-# tests/linter
-black
-coverage
-flake8
-pytest
-yapf
-
 # API
 gcsfs
 google-cloud-storage
-s3fs
 requests
 fastapi
 uvicorn

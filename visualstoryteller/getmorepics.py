@@ -65,7 +65,7 @@ def getmorepics(text, saveimage=False, savename='output.jpg'):
 
     toreturn = {
         'OK': len(mixing.stylized_image),
-        'image': mixing.stylized_image,
+        # 'image': mixing.stylized_image,
         'content': [content_link, content_author_name, content_author_profile],
         'style': [style_link, style_author_name, style_author_profile]
     }
