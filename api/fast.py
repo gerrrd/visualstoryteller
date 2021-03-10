@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from google.cloud import storage
 from visualstoryteller.getmorepics import getmorepics
 from datetime import datetime
+import os
 
 app = FastAPI()
 
@@ -40,16 +41,17 @@ def get_image(text):
     bucket = client.bucket(bucket_name)
     im_urls = []
 
-    for img in result['saved']:
-
-        path_to_file = img
-
+    # images have been locally saved
+    for path_to_file in result['saved']:
+        # uploading the result file
         blob = bucket.blob(f'{storage_location}/{path_to_file}')
         blob.upload_from_filename(path_to_file)
         blob.make_public()
         im_url = blob.public_url
 
         im_urls.append(im_url)
+        # deleting the local file:
+        os.remove(path_to_file)
 
     result['im_urls'] = im_urls
 
