@@ -24,9 +24,12 @@ class ContentImgUnsplash():
         response = requests.get(self.base_uri+self.endpoint_content, params=params)
         json_file = response.json()
         length_results = len(json_file['results'])
-        index = random.randint(0, length_results - 1)
-        img_link = json_file['results'][index]['urls']['small']
-        author_profile = json_file['results'][index]['user']['links']['html']
-        author_name = json_file['results'][index]['user']['name']
+        if length_results > 0:
+            index = random.randint(0, length_results - 1)
+            img_link = json_file['results'][index]['urls']['small']
+            author_profile = json_file['results'][index]['user']['links']['html']
+            author_name = json_file['results'][index]['user']['name']
 
-        return img_link, author_name, author_profile
+            return img_link, author_name, author_profile
+        # else, in worst case:
+        return "nothing", words[0], "nothing"
