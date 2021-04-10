@@ -22,8 +22,7 @@ The general workflow of AI-rtsie starts with a user entering a text into the web
 
 
 
-#### Language processing
-
+### Language processing
 
 
 ![](images/language_processing.png)
@@ -50,7 +49,7 @@ If the text entered by the user cannot be processed the above described way, or 
 
 
 
-#### Image retrieval
+### Image retrieval
 
 ![](images/img_retrieval.png)
 
@@ -58,7 +57,7 @@ Once the language processing is done, we use the extracted keywords to search fo
 
 
 
-#### Image processing
+### Image processing
 
 ![](images/algorithm.png)
 
